@@ -1,6 +1,6 @@
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
-	DocumentRoot "/data/www/paranoid"
+	DocumentRoot "/data/www/paranoid-web-rc"
 	LogLevel emerg
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
