@@ -17,9 +17,6 @@ cd /data/core/init
 wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/rpi-wiggle-full-automation
 chmod 775 /data/core/init/rpi-wiggle-full-automation
 ./rpi-wiggle-full-automation
-passwd
-adduser paranoid
-adduser paranoid sudo
 
 ### Second Boot
 
