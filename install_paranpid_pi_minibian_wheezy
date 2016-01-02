@@ -1,0 +1,35 @@
+################################################
+# Initnal setup
+# Tested on Minibian Wheezy Raspberry PI
+# IMPORTANT: Minibian Jessie not tested
+# http://paranoid.email
+# Configuration for direct connection IMAP/SMTP
+################################################
+
+### First Boot
+
+apt-get -y update
+apt-get -y install sudo parted
+echo "paranoid" > /etc/hostname
+mkdir -p /data/core/init
+mkdir -p /data/www/paranoid-web-rc
+cd /data/core/init
+wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/rpi-wiggle-full-automation
+chmod 775 /data/core/init/rpi-wiggle-full-automation
+./rpi-wiggle-full-automation
+adduser paranoid
+
+### Second Boot
+
+apt-get -y update && apt-get -y upgrade
+apt-get -y install apache2 php5 mysql-client mysql-server git mc screen vim gnupg gnupg-agent fetchmail php5-mysql php-pear
+wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/default -O /etc/apache2/sites-available/default
+mkdir -p /data/www/paranoid-web-rc
+git clone https://github.com/paranoidmail/paranoid-web-rc.git
+cp /data/www/paranoid-web-rc/paranoid.direct.config.inc.php /data/www/paranoid-web-rc/config.inc.php
+mysqladmin -u root -p create paranoid
+cat /data/www/paranoid-web-rc/SQL/mysql.initial.sql | mysql -u root -p paranoid
+chmod -R 775 /data/www
+chown -R www-data:www-data /data/www
+pear install channel://pear.php.net/Net_IDNA2-0.1.1
+service apache2 restart
