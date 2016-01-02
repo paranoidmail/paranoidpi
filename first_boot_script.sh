@@ -16,6 +16,7 @@ case "$1" in
       rm -f /home/paranoid/.bash_history && \
       rm -f /root/.bash_history" > /dev/null 2>&1
       for i in `find /var/log -type f`;do echo '' > $i;done; > /dev/null 2>&1
+      /data/core/init/rpi-wiggle-full-automation
       rm $0 > /dev/null 2>&1
     ;;
   *)
