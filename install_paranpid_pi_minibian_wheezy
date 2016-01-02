@@ -23,14 +23,14 @@ chmod 775 /data/core/init/rpi-wiggle-full-automation
 apt-get -y update && apt-get -y upgrade
 
 # For MYSQL Setup
-# apt-get -y install apache2 php5 mysql-client mysql-server git mc screen vim gnupg gnupg-agent fetchmail php5-mysql php-pear 
+# apt-get -y install apache2 php5 mysql-client mysql-server git gnupg gnupg-agent fetchmail php5-mysql php-pear 
 
-apt-get -y install apache2 php5 git mc screen vim gnupg gnupg-agent fetchmail php-pear sqlite3 php5-sqlite 
+apt-get -y install apache2 php5 git gnupg gnupg-agent fetchmail php-pear sqlite3 php5-sqlite 
 wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/default -O /etc/apache2/sites-available/default
 cd /data/www/
 git clone https://github.com/paranoidmail/paranoid-web-rc.git
 cp /data/www/paranoid-web-rc/config/paranoid.direct.config.inc.php /data/www/paranoid-web-rc/config/config.inc.php
-cat /data/www/paranoid-web-rc/SQL/sqlite.initial.sql | sqlite /data/www/sqlite/paranoid.db
+cat /data/www/paranoid-web-rc/SQL/sqlite.initial.sql | sqlite3 /data/www/sqlite/paranoid.db
 
 # For MYSQL Setup
 # mysqladmin -u root -p create paranoid
