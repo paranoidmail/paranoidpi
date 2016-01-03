@@ -1,4 +1,15 @@
 #!/bin/bash
+# /etc/init.d/first_boot_script.sh
+
+### BEGIN INIT INFO
+# Provides:          servoblaster
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This service is used to manage a servo
+### END INIT INFO
 
 . /lib/lsb/init-functions
 
