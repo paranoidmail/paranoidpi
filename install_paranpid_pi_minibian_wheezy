@@ -8,38 +8,37 @@
 
 ### First Boot
 
-apt-get -y update
-apt-get -y install sudo parted
-echo "paranoid" > /etc/hostname
-mkdir -p /data/core/init
-mkdir -p /data/www/sqlite
-cd /data/core/init
-wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/rpi-wiggle-full-automation
-chmod 775 /data/core/init/rpi-wiggle-full-automation
+apt-get -y update && \
+apt-get -y install sudo parted && \
+echo "paranoid" > /etc/hostname && \
+mkdir -p /data/core/init && \
+mkdir -p /data/www/sqlite && \
+cd /data/core/init && \
+wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/rpi-wiggle-full-automation && \
+chmod 700 /data/core/init/rpi-wiggle-full-automation && \
 ./rpi-wiggle-full-automation
 
 ### Second Boot
 
-apt-get -y update && apt-get -y upgrade
-
-# For MYSQL Setup
-# apt-get -y install apache2 php5 mysql-client mysql-server git gnupg gnupg-agent fetchmail php5-mysql php-pear 
-
-apt-get -y install apache2 php5 git gnupg gnupg-agent fetchmail php-pear sqlite3 php5-sqlite 
-wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/default -O /etc/apache2/sites-available/default
-cd /data/www/
-git clone https://github.com/paranoidmail/paranoid-web-rc.git
-cp /data/www/paranoid-web-rc/config/paranoid.direct.config.inc.php /data/www/paranoid-web-rc/config/config.inc.php
-cat /data/www/paranoid-web-rc/SQL/sqlite.initial.sql | sqlite3 /data/www/sqlite/paranoid.db
-
-# For MYSQL Setup
-# mysqladmin -u root -p create paranoid
-# cat /data/www/paranoid-web-rc/SQL/mysql.initial.sql | mysql -u root -p paranoid
-
-chmod -R 775 /data/www
-chown -R www-data:www-data /data/www
-pear install channel://pear.php.net/Net_IDNA2-0.1.1
-service apache2 restart
-passwd
-adduser paranoid
+apt-get -y update && apt-get -y upgrade && \
+# For MYSQL Setup && \
+# apt-get -y install apache2 php5 mysql-client mysql-server git gnupg gnupg-agent fetchmail php5-mysql php-pear && \
+apt-get -y install apache2 php5 git gnupg gnupg-agent fetchmail php-pear sqlite3 php5-sqlite && \
+wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/default -O /etc/apache2/sites-available/default && \
+wget https://raw.githubusercontent.com/paranoidmail/paranoidpi/master/first_boot_script.sh -O /etc/init.d/first_boot_script.sh && \
+chmod 700 /etc/init.d/first_boot_script.sh && \
+update-rc.d /etc/init.d/first_boot_script.sh defaults && \
+cd /data/www/ && \
+git clone https://github.com/paranoidmail/paranoid-web-rc.git && \
+cp /data/www/paranoid-web-rc/config/paranoid.direct.config.inc.php /data/www/paranoid-web-rc/config/config.inc.php && \
+cat /data/www/paranoid-web-rc/SQL/sqlite.initial.sql | sqlite3 /data/www/sqlite/paranoid.db && \
+# For MYSQL Setup && \
+# mysqladmin -u root -p create paranoid && \
+# cat /data/www/paranoid-web-rc/SQL/mysql.initial.sql | mysql -u root -p paranoid && \
+chmod -R 770 /data/www && \
+chown -R www-data:www-data /data/www && \
+pear install channel://pear.php.net/Net_IDNA2-0.1.1 && \
+service apache2 restart && \
+passwd && \
+adduser paranoid && \
 adduser paranoid sudo
