@@ -2,13 +2,13 @@
 # /etc/init.d/first_boot_script.sh
 
 ### BEGIN INIT INFO
-# Provides:          servoblaster
+# Provides:          firstboot
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Example initscript
-# Description:       This service is used to manage a servo
+# Short-Description: Paranoid Script to generate new SSH keys
+# Description:       This script is for new SSH keys creation after IMG burning.
 ### END INIT INFO
 
 . /lib/lsb/init-functions
